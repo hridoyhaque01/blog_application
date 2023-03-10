@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { sorted, statusChanged } from "../../features/filter/filterSlice";
 
 export default function Filter() {
-  const { status } = useSelector((state) => state.filter);
+  const { sort, status } = useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
   const sortHandler = (event) => {
@@ -25,6 +25,7 @@ export default function Filter() {
             id="lws-sort"
             className="w-full max-w-[150px] border-2 rounded-md text-gray-500"
             onChange={sortHandler}
+            value={sort}
           >
             <option value="">Default</option>
             <option value="newest">Newest</option>
