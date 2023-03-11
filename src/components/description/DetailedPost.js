@@ -1,20 +1,17 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import {
-  fetchUpdatedLikes,
-  fetchUpdatedSaved,
-} from "../../features/blog/blogSlice";
+import { updatedLikes, updatedSaved } from "../../features/blog/blogSlice";
 
 export default function DetailedPost({ blog }) {
   const dispatch = useDispatch();
   const { title, image, description, tags, likes, isSaved, id } = blog;
 
   const likeHandler = () => {
-    dispatch(fetchUpdatedLikes({ id, likes }));
+    dispatch(updatedLikes({ id, likes }));
   };
 
   const savedHandler = () => {
-    dispatch(fetchUpdatedSaved({ id, isSaved }));
+    dispatch(updatedSaved({ id, isSaved }));
   };
 
   return (

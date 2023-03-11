@@ -5,14 +5,14 @@ const getBlog = async (blogId) => {
   return response.data;
 };
 
-const setUpdatedLikes = async ({ id, likes }) => {
+const setUpdatedLikes = async (id, likes) => {
   const response = await axios.patch(`/blogs/${id}`, {
     likes: likes + 1,
   });
   return response.data;
 };
 
-const setUpdatedSaved = async ({ id, isSaved }) => {
+const setUpdatedSaved = async (id, isSaved) => {
   const response = await axios.patch(`/blogs/${id}`, {
     isSaved: !isSaved,
   });

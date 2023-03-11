@@ -15,18 +15,18 @@ export const fetchBlog = createAsyncThunk("blog/fetchBlog", async (blogId) => {
   return blog;
 });
 
-export const fetchUpdatedLikes = createAsyncThunk(
-  "blog/fetchUpdatedLikes",
+export const updatedLikes = createAsyncThunk(
+  "blog/updatedLikes",
   async ({ id, likes }) => {
-    const updatedLike = await setUpdatedLikes({ id, likes });
+    const updatedLike = await setUpdatedLikes(id, likes);
     return updatedLike;
   }
 );
 
-export const fetchUpdatedSaved = createAsyncThunk(
-  "blog/fetchUpdatedSaved",
+export const updatedSaved = createAsyncThunk(
+  "blog/updatedSaved",
   async ({ id, isSaved }) => {
-    const updatedSaved = await setUpdatedSaved({ id, isSaved });
+    const updatedSaved = await setUpdatedSaved(id, isSaved);
     return updatedSaved;
   }
 );
@@ -52,35 +52,35 @@ const blogSlice = createSlice({
         state.error = action.error?.message;
         state.blog = {};
       })
-      .addCase(fetchUpdatedLikes.pending, (state) => {
+      .addCase(updatedLikes.pending, (state) => {
         state.loading = true;
         state.isError = false;
       })
-      .addCase(fetchUpdatedLikes.fulfilled, (state, action) => {
+      .addCase(updatedLikes.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isError = false;
+        state.error = "";
         state.blog.likes = action.payload.likes;
-        state.loading = false;
-        state.isError = false;
-        state.error = "";
       })
-      .addCase(fetchUpdatedLikes.rejected, (state, action) => {
+      .addCase(updatedLikes.rejected, (state, action) => {
         state.loading = false;
         state.isError = true;
-        state.error = action.error.message;
+        state.error = action.error?.message;
       })
-      .addCase(fetchUpdatedSaved.pending, (state) => {
+      .addCase(updatedSaved.pending, (state) => {
         state.loading = true;
         state.isError = false;
       })
-      .addCase(fetchUpdatedSaved.fulfilled, (state, action) => {
-        state.blog.isSaved = action.payload.isSaved;
+      .addCase(updatedSaved.fulfilled, (state, action) => {
         state.loading = false;
         state.isError = false;
         state.error = "";
+        state.blog.isSaved = action.payload.isSaved;
       })
-      .addCase(fetchUpdatedSaved.rejected, (state, action) => {
+      .addCase(updatedSaved.rejected, (state, action) => {
         state.loading = false;
         state.isError = true;
-        state.error = action.error.message;
+        state.error = action.error?.message;
       });
   },
 });
