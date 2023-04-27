@@ -30,6 +30,7 @@ export default function BlogLists() {
   }
 
   if (!isLoding && !isError && blogs?.length > 0) {
+    
     const sortBlogs = () => {
       switch (sort) {
         case "newest":
